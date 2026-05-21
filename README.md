@@ -12,6 +12,13 @@ bun dev
 
 No Cloudflare credentials needed — both bugs crash before any API call.
 
+> **Important:** do NOT add `@effect/platform-bun` as a direct root dependency.
+> When it is present at the root, alchemy detects Bun via its optional peer and
+> runs the exec subprocess under Bun instead of Node.js, which silently fixes
+> the bugs. The errors only surface when `@effect/platform-bun` is absent from
+> the root workspace (it may still be installed transitively — alchemy can't
+> see it through Bun's isolated linker in that case).
+
 ## Bug 1 — Extension-less TypeScript imports break under alchemy's exec subprocess
 
 `alchemy dev` eventually spawns `node --experimental-transform-types exec.js`

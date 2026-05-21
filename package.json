@@ -2,7 +2,10 @@
   "name": "alchemy-node-esm-bundling-repro",
   "private": true,
   "type": "module",
-  "workspaces": ["libs/*", "services/*"],
+  "workspaces": [
+    "libs/*",
+    "services/*"
+  ],
   "scripts": {
     "dev": "alchemy dev"
   },
