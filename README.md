@@ -12,17 +12,9 @@ bun dev
 
 No Cloudflare credentials needed — both bugs crash before any API call.
 
-> **Two conditions required to reproduce:**
-> 1. `bunfig.toml` with `linker = "isolated"` (included)
-> 2. `@effect/platform-bun` must NOT be a direct root dependency
->
-> When `@effect/platform-bun` is present at the root, alchemy's `dev.js`
-> detects `typeof globalThis.Bun !== "undefined"` and spawns the exec
-> subprocess under Bun, which handles extension-less TypeScript imports and
-> bare JSON imports fine. Without it (and with the isolated linker preventing
-> transitive resolution), alchemy falls back to
-> `node --experimental-transform-types exec.js` — Node.js strict ESM — where
-> the errors surface.
+> **Trigger:** having a `Cloudflare.Vite` resource alongside the Worker forces
+> alchemy's dev subprocess onto the Node.js path (`node --experimental-transform-types`).
+> Without `Cloudflare.Vite`, alchemy uses Bun and the errors don't appear.
 
 ## Bug 1 — Extension-less TypeScript imports break under alchemy's exec subprocess
 

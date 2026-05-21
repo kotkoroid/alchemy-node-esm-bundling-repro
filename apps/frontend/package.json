@@ -1,0 +1,8 @@
+{
+  "name": "@repro/frontend",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "vite": "^8.0.7"
+  }
+}

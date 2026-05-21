@@ -10,7 +10,10 @@ export default Alchemy.Stack(
     state: Cloudflare.state(),
   },
   Effect.gen(function* () {
+    const frontend = yield* Cloudflare.Vite('Frontend', {
+      rootDir: './apps/frontend',
+    });
     const worker = yield* Worker;
-    return { url: worker.url };
+    return { url: frontend.url, workerUrl: worker.url };
   }),
 );
