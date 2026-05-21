@@ -12,13 +12,17 @@ bun dev
 
 No Cloudflare credentials needed — both bugs crash before any API call.
 
-> **Requires `bunfig.toml` with `linker = "isolated"`** (included in this repo).
-> With Bun's default hoisted linker the errors don't appear because alchemy can
-> find `@effect/platform-bun` and switches the exec subprocess to Bun mode.
-> With the isolated linker, alchemy cannot see `@effect/platform-bun` through
-> the per-package `node_modules` trees and falls back to
-> `node --experimental-transform-types`, which is where the Node.js strict ESM
-> errors surface.
+> **Two conditions required to reproduce:**
+> 1. `bunfig.toml` with `linker = "isolated"` (included)
+> 2. `@effect/platform-bun` must NOT be a direct root dependency
+>
+> When `@effect/platform-bun` is present at the root, alchemy's `dev.js`
+> detects `typeof globalThis.Bun !== "undefined"` and spawns the exec
+> subprocess under Bun, which handles extension-less TypeScript imports and
+> bare JSON imports fine. Without it (and with the isolated linker preventing
+> transitive resolution), alchemy falls back to
+> `node --experimental-transform-types exec.js` — Node.js strict ESM — where
+> the errors surface.
 
 ## Bug 1 — Extension-less TypeScript imports break under alchemy's exec subprocess
 
