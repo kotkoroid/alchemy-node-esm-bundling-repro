@@ -1,0 +1,14 @@
+{
+  "name": "alchemy-node-esm-bundling-repro",
+  "private": true,
+  "type": "module",
+  "workspaces": ["libs/*", "services/*"],
+  "scripts": {
+    "dev": "alchemy dev"
+  },
+  "devDependencies": {
+    "alchemy": "2.0.0-beta.40",
+    "effect": "4.0.0-beta.66",
+    "typescript": "6.0.2"
+  }
+}

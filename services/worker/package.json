@@ -1,0 +1,7 @@
+{
+  "name": "@repro/worker",
+  "type": "module",
+  "dependencies": {
+    "@repro/shared": "workspace:*"
+  }
+}

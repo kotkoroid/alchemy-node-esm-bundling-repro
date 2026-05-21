@@ -1,0 +1,7 @@
+{
+  "name": "@repro/shared",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  }
+}
